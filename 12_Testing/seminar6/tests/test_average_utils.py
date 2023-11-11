@@ -29,10 +29,10 @@ class TestUnitCompareAverage:
             au, "find_average", side_effect=[2, 2]
         ) as mock_find_average:
             expected_output = "Средние значения равны"
-            au.compare_average([1, 2, 3], [2, 1])
+            au.compare_average([1, 2, 3], [2, 2])
             captured = capsys.readouterr()
             assert captured.out.strip() == expected_output
-            mock_find_average.assert_called_with([2, 1])
+            mock_find_average.assert_called_with([2, 2])
 
     def test_compare_average_greater(self, capsys):
         with patch.object(
@@ -49,10 +49,10 @@ class TestUnitCompareAverage:
             au, "find_average", side_effect=[2, 3.5]
         ) as mock_find_average:
             expected_output = "Второй список имеет большее среднее значение"
-            au.compare_average([1, 2, 3], [2, 1])
+            au.compare_average([1, 2, 3], [2, 5])
             captured = capsys.readouterr()
             assert captured.out.strip() == expected_output
-            mock_find_average.assert_called_with([2, 1])
+            mock_find_average.assert_called_with([2, 5])
 
 
 class TestIntegration:
