@@ -17,6 +17,9 @@ class Person:
     def get_login(self) -> str:
         return self.login
 
+    def get_card_number(self) -> int:
+        return self.card_number
+
     def set_login(self, login: str) -> None:
         self.login = login
 
