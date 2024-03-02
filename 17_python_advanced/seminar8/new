@@ -1,0 +1,468 @@
+Не все тесты пройдены, есть ошибки :(
+
+
+Количество затраченных попыток: 1
+
+Время выполнения: 3.020391 сек
+
+Общая статистика
+
+Всего тестов: 5. Пройдено: 0. Не пройдено: 5.
+
+Подробную информацию по каждому тесту смотрите ниже.
+Тест 1
+Тест не пройден ✗
+
+Формулировка:
+
+* Итоговый код для проверки.
+
+import warnings
+
+warnings.filterwarnings('ignore')
+
+# Введите ваше решение ниже
+import csv
+import json
+import os
+import pickle
+from pathlib import Path
+
+
+def save_results_to_json(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
+
+def save_results_to_csv(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, ["Path", "Type", "Size"])
+        for d in data:
+            writer.writerow(d)
+
+
+def save_results_to_pickle(file, data):
+    with open(file, "bw") as f:
+        pickle.dump(data, f)
+
+
+def build_data(fd: Path, obj_type):
+    result = {}
+    result["Path"] = str(fd.absolute())
+    result["Type"] = obj_type
+    result["Size"] = os.lstat(fd).st_size
+    return result
+
+
+def walk(directory: Path):
+    result = []
+    if directory.is_dir():
+        for root, dirs, files in directory.walk():
+            for file in files:
+                result.append(build_data(root / file, "File"))
+            for dir in dirs:
+                result.append(build_data(root / dir, "Directory"))
+    return result
+
+
+def traverse_directory(directory):
+    root = Path(".")
+    target_dir = root / directory
+    result = walk(target_dir)
+    print(result)
+    save_results_to_json("json.json", result)
+    save_results_to_csv("csv.csv", result)
+    save_results_to_pickle("pickle", result)
+
+ 
+
+
+directory = 'geekbrains'
+results = traverse_directory(directory)
+print(results)
+
+
+
+Ожидаемый ответ:
+
+[{'Path': 'geekbrains/california_housing_train.csv', 'Type': 'File', 'Size': 1457}, {'Path': 'geekbrains/student_performance.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/covid.json', 'Type': 'File', 'Size': 35228079}, {'Path': 'geekbrains/input2.txt', 'Type': 'File', 'Size': 9}, {'Path': 'geekbrains/avg_list.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/age_report.csv', 'Type': 'File', 'Size': 85}, {'Path': 'geekbrains/my_ds_projects', 'Type': 'Directory', 'Size': 684}, {'Path': 'geekbrains/my_ds_projects/My-code', 'Type': 'Directory', 'Size': 342}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data', 'Type': 'Directory', 'Size': 171}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/fruits.csv', 'Type': 'File', 'Size': 101}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/list_of_names.txt', 'Type': 'File', 'Size': 70}]
+
+[{'Path': 'geekbrains/california_housing_train.csv', 'Type': 'File', 'Size': 1457}, {'Path': 'geekbrains/student_performance.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/covid.json', 'Type': 'File', 'Size': 35228079}, {'Path': 'geekbrains/input2.txt', 'Type': 'File', 'Size': 9}, {'Path': 'geekbrains/avg_list.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/age_report.csv', 'Type': 'File', 'Size': 85}, {'Path': 'geekbrains/my_ds_projects', 'Type': 'Directory', 'Size': 684}, {'Path': 'geekbrains/my_ds_projects/My-code', 'Type': 'Directory', 'Size': 342}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data', 'Type': 'Directory', 'Size': 171}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/fruits.csv', 'Type': 'File', 'Size': 101}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/list_of_names.txt', 'Type': 'File', 'Size': 70}]
+
+
+
+Ошибка:
+
+Traceback (most recent call last):
+  File "3GAHDVEBFTF93DDC73E4.py", line 64, in <module>
+    results = traverse_directory(directory)
+  File "3GAHDVEBFTF93DDC73E4.py", line 54, in traverse_directory
+    result = walk(target_dir)
+  File "3GAHDVEBFTF93DDC73E4.py", line 43, in walk
+    for root, dirs, files in directory.walk():
+AttributeError: 'PosixPath' object has no attribute 'walk'
+Тест 2
+Тест не пройден ✗
+
+Формулировка:
+
+* Итоговый код для проверки.
+
+import warnings
+
+warnings.filterwarnings('ignore')
+
+# Введите ваше решение ниже
+import csv
+import json
+import os
+import pickle
+from pathlib import Path
+
+
+def save_results_to_json(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
+
+def save_results_to_csv(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, ["Path", "Type", "Size"])
+        for d in data:
+            writer.writerow(d)
+
+
+def save_results_to_pickle(file, data):
+    with open(file, "bw") as f:
+        pickle.dump(data, f)
+
+
+def build_data(fd: Path, obj_type):
+    result = {}
+    result["Path"] = str(fd.absolute())
+    result["Type"] = obj_type
+    result["Size"] = os.lstat(fd).st_size
+    return result
+
+
+def walk(directory: Path):
+    result = []
+    if directory.is_dir():
+        for root, dirs, files in directory.walk():
+            for file in files:
+                result.append(build_data(root / file, "File"))
+            for dir in dirs:
+                result.append(build_data(root / dir, "Directory"))
+    return result
+
+
+def traverse_directory(directory):
+    root = Path(".")
+    target_dir = root / directory
+    result = walk(target_dir)
+    print(result)
+    save_results_to_json("json.json", result)
+    save_results_to_csv("csv.csv", result)
+    save_results_to_pickle("pickle", result)
+
+ 
+
+
+directory = 'geekbrains/my_ds_projects'
+results = traverse_directory(directory)
+print(results)
+
+
+
+Ожидаемый ответ:
+
+[{'Path': 'geekbrains/my_ds_projects/My-code', 'Type': 'Directory', 'Size': 342}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data', 'Type': 'Directory', 'Size': 171}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/fruits.csv', 'Type': 'File', 'Size': 101}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/list_of_names.txt', 'Type': 'File', 'Size': 70}]
+
+
+Ошибка:
+
+Traceback (most recent call last):
+  File "JFA9CYIY03J34B0V3EOS.py", line 64, in <module>
+    results = traverse_directory(directory)
+  File "JFA9CYIY03J34B0V3EOS.py", line 54, in traverse_directory
+    result = walk(target_dir)
+  File "JFA9CYIY03J34B0V3EOS.py", line 43, in walk
+    for root, dirs, files in directory.walk():
+AttributeError: 'PosixPath' object has no attribute 'walk'
+Тест 3
+Тест не пройден ✗
+
+Формулировка:
+
+* Итоговый код для проверки.
+
+import warnings
+
+warnings.filterwarnings('ignore')
+
+# Введите ваше решение ниже
+import csv
+import json
+import os
+import pickle
+from pathlib import Path
+
+
+def save_results_to_json(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
+
+def save_results_to_csv(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, ["Path", "Type", "Size"])
+        for d in data:
+            writer.writerow(d)
+
+
+def save_results_to_pickle(file, data):
+    with open(file, "bw") as f:
+        pickle.dump(data, f)
+
+
+def build_data(fd: Path, obj_type):
+    result = {}
+    result["Path"] = str(fd.absolute())
+    result["Type"] = obj_type
+    result["Size"] = os.lstat(fd).st_size
+    return result
+
+
+def walk(directory: Path):
+    result = []
+    if directory.is_dir():
+        for root, dirs, files in directory.walk():
+            for file in files:
+                result.append(build_data(root / file, "File"))
+            for dir in dirs:
+                result.append(build_data(root / dir, "Directory"))
+    return result
+
+
+def traverse_directory(directory):
+    root = Path(".")
+    target_dir = root / directory
+    result = walk(target_dir)
+    print(result)
+    save_results_to_json("json.json", result)
+    save_results_to_csv("csv.csv", result)
+    save_results_to_pickle("pickle", result)
+
+ 
+
+
+directory = 'geekbrains'
+results = traverse_directory(directory)
+save_results_to_json(results, 'results.json')
+
+with open('results.json', 'r') as f:
+    data = json.load(f)
+
+print(data)
+
+
+
+Ожидаемый ответ:
+
+[{'Path': 'geekbrains/california_housing_train.csv', 'Type': 'File', 'Size': 1457}, {'Path': 'geekbrains/student_performance.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/covid.json', 'Type': 'File', 'Size': 35228079}, {'Path': 'geekbrains/input2.txt', 'Type': 'File', 'Size': 9}, {'Path': 'geekbrains/avg_list.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/age_report.csv', 'Type': 'File', 'Size': 85}, {'Path': 'geekbrains/my_ds_projects', 'Type': 'Directory', 'Size': 684}, {'Path': 'geekbrains/my_ds_projects/My-code', 'Type': 'Directory', 'Size': 342}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data', 'Type': 'Directory', 'Size': 171}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/fruits.csv', 'Type': 'File', 'Size': 101}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/list_of_names.txt', 'Type': 'File', 'Size': 70}]
+
+Ошибка:
+
+Traceback (most recent call last):
+  File "M44E9RHABH6T0ULYT0BS.py", line 64, in <module>
+    results = traverse_directory(directory)
+  File "M44E9RHABH6T0ULYT0BS.py", line 54, in traverse_directory
+    result = walk(target_dir)
+  File "M44E9RHABH6T0ULYT0BS.py", line 43, in walk
+    for root, dirs, files in directory.walk():
+AttributeError: 'PosixPath' object has no attribute 'walk'
+Тест 4
+Тест не пройден ✗
+
+Формулировка:
+
+* Итоговый код для проверки.
+
+import warnings
+
+warnings.filterwarnings('ignore')
+
+# Введите ваше решение ниже
+import csv
+import json
+import os
+import pickle
+from pathlib import Path
+
+
+def save_results_to_json(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
+
+def save_results_to_csv(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, ["Path", "Type", "Size"])
+        for d in data:
+            writer.writerow(d)
+
+
+def save_results_to_pickle(file, data):
+    with open(file, "bw") as f:
+        pickle.dump(data, f)
+
+
+def build_data(fd: Path, obj_type):
+    result = {}
+    result["Path"] = str(fd.absolute())
+    result["Type"] = obj_type
+    result["Size"] = os.lstat(fd).st_size
+    return result
+
+
+def walk(directory: Path):
+    result = []
+    if directory.is_dir():
+        for root, dirs, files in directory.walk():
+            for file in files:
+                result.append(build_data(root / file, "File"))
+            for dir in dirs:
+                result.append(build_data(root / dir, "Directory"))
+    return result
+
+
+def traverse_directory(directory):
+    root = Path(".")
+    target_dir = root / directory
+    result = walk(target_dir)
+    print(result)
+    save_results_to_json("json.json", result)
+    save_results_to_csv("csv.csv", result)
+    save_results_to_pickle("pickle", result)
+
+ 
+
+
+directory = 'geekbrains'
+results = traverse_directory(directory)
+save_results_to_csv(results, 'results.csv')
+
+with open('results.csv', 'r', newline='') as f:
+    reader = csv.reader(f)
+    data = [row for row in reader]
+
+print(data)
+
+
+
+Ожидаемый ответ:
+
+[['Path', 'Type', 'Size'], ['geekbrains/california_housing_train.csv', 'File', '1457'], ['geekbrains/student_performance.txt', 'File', '21'], ['geekbrains/covid.json', 'File', '35228079'], ['geekbrains/input2.txt', 'File', '9'], ['geekbrains/avg_list.txt', 'File', '21'], ['geekbrains/age_report.csv', 'File', '85'], ['geekbrains/my_ds_projects', 'Directory', '684'], ['geekbrains/my_ds_projects/My-code', 'Directory', '342'], ['geekbrains/my_ds_projects/My-code/GB_data', 'Directory', '171'], ['geekbrains/my_ds_projects/My-code/GB_data/fruits.csv', 'File', '101'], ['geekbrains/my_ds_projects/My-code/GB_data/list_of_names.txt', 'File', '70']]
+
+Ошибка:
+
+Traceback (most recent call last):
+  File "KQSNZPKYXQVRYAKXP48X.py", line 64, in <module>
+    results = traverse_directory(directory)
+  File "KQSNZPKYXQVRYAKXP48X.py", line 54, in traverse_directory
+    result = walk(target_dir)
+  File "KQSNZPKYXQVRYAKXP48X.py", line 43, in walk
+    for root, dirs, files in directory.walk():
+AttributeError: 'PosixPath' object has no attribute 'walk'
+Тест 5
+Тест не пройден ✗
+
+Формулировка:
+
+* Итоговый код для проверки.
+
+import warnings
+
+warnings.filterwarnings('ignore')
+
+# Введите ваше решение ниже
+import csv
+import json
+import os
+import pickle
+from pathlib import Path
+
+
+def save_results_to_json(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
+
+def save_results_to_csv(file, data):
+    with open(file, "w", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, ["Path", "Type", "Size"])
+        for d in data:
+            writer.writerow(d)
+
+
+def save_results_to_pickle(file, data):
+    with open(file, "bw") as f:
+        pickle.dump(data, f)
+
+
+def build_data(fd: Path, obj_type):
+    result = {}
+    result["Path"] = str(fd.absolute())
+    result["Type"] = obj_type
+    result["Size"] = os.lstat(fd).st_size
+    return result
+
+
+def walk(directory: Path):
+    result = []
+    if directory.is_dir():
+        for root, dirs, files in directory.walk():
+            for file in files:
+                result.append(build_data(root / file, "File"))
+            for dir in dirs:
+                result.append(build_data(root / dir, "Directory"))
+    return result
+
+
+def traverse_directory(directory):
+    root = Path(".")
+    target_dir = root / directory
+    result = walk(target_dir)
+    print(result)
+    save_results_to_json("json.json", result)
+    save_results_to_csv("csv.csv", result)
+    save_results_to_pickle("pickle", result)
+
+ 
+
+
+directory = 'geekbrains'
+results = traverse_directory(directory)
+save_results_to_pickle(results, 'results.pkl')
+
+with open('results.pkl', 'rb') as f:
+    data = pickle.load(f)
+
+print(data)
+
+
+
+Ожидаемый ответ:
+
+[{'Path': 'geekbrains/california_housing_train.csv', 'Type': 'File', 'Size': 1457}, {'Path': 'geekbrains/student_performance.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/covid.json', 'Type': 'File', 'Size': 35228079}, {'Path': 'geekbrains/input2.txt', 'Type': 'File', 'Size': 9}, {'Path': 'geekbrains/avg_list.txt', 'Type': 'File', 'Size': 21}, {'Path': 'geekbrains/age_report.csv', 'Type': 'File', 'Size': 85}, {'Path': 'geekbrains/my_ds_projects', 'Type': 'Directory', 'Size': 684}, {'Path': 'geekbrains/my_ds_projects/My-code', 'Type': 'Directory', 'Size': 342}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data', 'Type': 'Directory', 'Size': 171}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/fruits.csv', 'Type': 'File', 'Size': 101}, {'Path': 'geekbrains/my_ds_projects/My-code/GB_data/list_of_names.txt', 'Type': 'File', 'Size': 70}]
+
+Ошибка:
+
+Traceback (most recent call last):
+  File "LVTZCKAH0MSAL21QCP7B.py", line 64, in <module>
+    results = traverse_directory(directory)
+  File "LVTZCKAH0MSAL21QCP7B.py", line 54, in traverse_directory
+    result = walk(target_dir)
+  File "LVTZCKAH0MSAL21QCP7B.py", line 43, in walk
+    for root, dirs, files in directory.walk():
+AttributeError: 'PosixPath' object has no attribute 'walk'
