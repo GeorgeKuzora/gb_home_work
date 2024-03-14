@@ -8,8 +8,8 @@ class LotteryGame:
         for i in list1:
             if i in list2:
                 fin_list.append(i)
-        print(f"Совпадающие числа: {fin_list}")
         if fin_list:
+            print(f"Совпадающие числа: {fin_list}")
             print(f"Количество совпадающих чисел: {len(fin_list)}")
         else:
             print("Совпадающих чисел нет.")
