@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/static/css/style.css">
+<title>Главная</title>
+</head>
+<body>
+    {% if name %}
+        <h1 class="text-monospace">Привет, меня зовут {{ name }}</h1>
+    {% endif %}
+<img src="/static/image/foto.jpg" alt="Моё фото" width="300">
+<h1 class="text-monospace text-center">CODE</h1>
+<p class="row">
+{% for line in text %}
+    <span class="text-black-50 col-12 col-md-6">{{ line }}</span><br/>
+{% endfor %}
+</p>
+<p class="alert-dark">Все права защищены &copy;</p>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+    Категории товаров
+{% endblock %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<div class="products">
+{% for item in items %}
+    <div class="product">
+    <img src="static/img/{{ item.title }}.jpg" alt={{ item.title }}>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        <p>Цена: ${{ item.price }}</p>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
