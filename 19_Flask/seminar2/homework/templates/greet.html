@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <title>Приветствие</title>
+  </head>
+  <body>
+    <h1 class="text-monospace">Привет, {{ username }}</h1>
+    {% if email %}
+    <div><span>Твой email {{ email }}</span></div>
+    {% endif %}
+    <form action="{{ url_for('greet') }}" method="post">
+      <input type="submit" value="Отправить" />
+    </form>
+  </body>
+</html>
+

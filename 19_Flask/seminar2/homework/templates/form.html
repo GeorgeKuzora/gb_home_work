@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Форма для POST запроса</title>
+  </head>
+  <body>
+    <form action="{{ url_for('submit') }}" method="post">
+      <input type="text" name="username" placeholder="Имя" />
+      <input type="text" name="email" placeholder="Электронная почта" />
+      <input type="submit" value="Отправить" />
+    </form>
+  </body>
+</html>
