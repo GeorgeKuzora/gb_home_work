@@ -119,6 +119,88 @@
 
 - show ip nat translations
 
+Для того чтобы настроить любой NAT, сначала необходимо определить inside и outside интерфейсы.
+
+!
+
+!
+
+interface GigabitEthernet0/0/0
+
+ip address 8.8.8.1 255.255.255.0
+
+ip nat outside
+
+duplex auto
+
+speed auto
+
+!
+
+interface GigabitEthernet0/0/1
+
+ip address 10.0.0.1 255.255.255.0
+
+ip nat inside
+
+duplex auto
+
+speed auto
+
+!
+
+Команды, для того чтобы настроить Static NAT:
+
+Здесь мы задаем правило трансляции IP 10.0.0.100 в 7.7.7.1
+
+!
+
+ip nat inside source static 10.0.0.100 7.7.7.1
+
+!
+
+Команды, для того чтобы настроить PAT:
+
+Сначала описываем Access list, который включает себя диапазон src IP из сети 10.0.0.0/24
+
+!
+
+ip access-list standard NET_10.0.0.0/24
+
+permit 10.0.0.0 0.0.0.255
+
+!
+
+Затем задаем правило PAT-трансляции всех IP из нашего Access list'а в IP адрес, который настроен на GigabitEthernet0/0/0
+
+ip nat inside source list NET_10.0.0.0/24 interface GigabitEthernet0/0/0 overload
+
+!
+
+Команды, для того чтобы настроить Port Forwarding:
+
+!
+
+Здесь мы задаем статическую трансляцию 6.6.6.1:80 в 10.0.0.100:80
+
+ip nat inside source static tcp 10.0.0.100 80 6.6.6.1 80
+
+!
+
+Здесь мы задаем статическую трансляцию 6.6.6.1:443 уже в 10.0.0.101:443
+
+ip nat inside source static tcp 10.0.0.101 443 6.6.6.1 443
+
+!
+
+Команда для просмотра NAT:
+
+show ip nat translations
+
+Команда для удаления динамических записей в NAT:
+
+clear ip nat translation *
+
 ## Настройка GRE
 
 - enable
@@ -129,3 +211,18 @@
 - tunnel destination 4.4.4.2 - публичный адрес на который будут отсылаться пакеты
 - exit - в глобальный конфиг
 - ip route 192.168.0.0 255.255.255.0 172.16.0.2 - настройка статического маршрута в нашей приватной тунелированной сети
+
+
+interface Tunnel777
+
+ip address 172.16.0.1 255.255.255.0 - IP адрес самого туннельного интерфейса
+
+mtu 1476 - урезанный MTU, прописывать не надо, устанавливается самостоятельно
+
+tunnel source GigabitEthernet0/0/1 - source IP адрес, который будет устанавливаться во втором L3 заголовке
+
+tunnel destination 4.4.4.2 - destination IP адрес, который будет устанавливаться во втором L3 заголовке
+
+!
+
+ip route 192.168.0.0 255.255.255.0 172.16.0.2 - не забываем про маршрут в сеть нашего "филиала". Next-hop'ом здесь выступает IP адрес удаленного туннельного интерфейса.
