@@ -3,7 +3,10 @@ import asyncio
 import aiofiles
 import aiohttp
 
+from utils import logger, timer
 
+
+@timer
 async def download_image(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -28,7 +31,9 @@ async def runner(urls):
         for filename_prefix, url in enumerate(urls)
     ]
     await asyncio.gather(*tasks)
+    logger.info("All async processes exited")
 
 
+@timer
 def main_async(urls):
     asyncio.run(runner(urls))

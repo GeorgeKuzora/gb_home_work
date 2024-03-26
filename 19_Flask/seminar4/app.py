@@ -1,18 +1,14 @@
 import argparse
-import logging
 import multiprocessing
 import threading
 
 import requests
 
 from app_async import main_async
-
-url = "https://media.geeksforgeeks.org/wp-content/uploads/20221014220743/karma.png"
-
-logging.basicConfig(level="DEBUG")
-logger = logging.getLogger(__name__)
+from utils import logger, timer
 
 
+@timer
 def download_image(url):
     data = requests.get(url).content
     return data
@@ -29,11 +25,13 @@ def process(url, filename_prefix):
     write_data(data, filename)
 
 
+@timer
 def main(urls):
     for i, url in enumerate(urls):
         process(url, str(i))
 
 
+@timer
 def main_thread(urls):
     threads = []
     for i, v in enumerate(urls):
@@ -45,6 +43,7 @@ def main_thread(urls):
     logger.info("All threads exited")
 
 
+@timer
 def main_proc(urls):
     processes = []
     for i, v in enumerate(urls):
