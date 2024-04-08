@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/style.css" rel="stylesheet" />
+    <title>Список заказов {{ client.name }}</title>
+  </head>
+  <body>
+    <h1>Список ваших заказов за последние {{ period }} дней</h1>
+    {% if orders %}
+    <ul>
+      {% for order in orders %}
+      <li>
+        <div class="order-card">
+          {% for product in order.products %}
+          <div><p>Товар: {{ product.title }}</p></div>
+          {% endfor %}
+          <div><p>Общая стоимость: {{ order.order_data.total_price }}</p></div>
+          <div><p>Дата заказа: {{ order.order_data.date_ordered }}</p></div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div><p>Список ваших заказов пуст</p></div>
+    {% endif %}
+  </body>
+</html>
