@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product Form</title>
+  </head>
+  <body>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_div }}
+      <button type="submit">Upload Image</button>
+    </form>
+  </body>
+</html>

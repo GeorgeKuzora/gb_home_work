@@ -1,0 +1,5 @@
+.order-card {
+  border: 1px solid #ccc; /* Граница карточки */
+  padding: 10px; /* Отступы внутри карточки */
+  margin-bottom: 10px; /* Отступ между карточками */
+}
